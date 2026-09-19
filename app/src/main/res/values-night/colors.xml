@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="azul_primario">#5FA4DC</color>
+    <color name="azul_primario_oscuro">#0B3D6B</color>
+    <color name="azul_suave">#15293A</color>
+
+    <color name="estado_normal">#7BC67E</color>
+    <color name="estado_normal_suave">#1C2A1D</color>
+    <color name="estado_precaucion">#FFC95C</color>
+    <color name="estado_precaucion_suave">#2E2716</color>
+    <color name="estado_alto">#FF9E52</color>
+    <color name="estado_alto_suave">#2E2117</color>
+    <color name="estado_critico">#FF7B7B</color>
+    <color name="estado_critico_suave">#2E1A1A</color>
+
+    <color name="fondo">#0C1117</color>
+    <color name="superficie">#161E26</color>
+    <color name="superficie_variante">#1F2A34</color>
+    <color name="texto_primario">#E8EDF2</color>
+    <color name="texto_secundario">#A5B2BD</color>
+    <color name="borde">#2B3742</color>
+</resources>
