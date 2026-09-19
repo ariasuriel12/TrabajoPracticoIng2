@@ -1,7 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!-- Tema oscuro: hereda la misma base, los colores se resuelven desde values-night/colors.xml -->
     <style name="Base.Theme.TrabajoPracticoIng2" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/azul_primario</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorPrimaryContainer">@color/azul_suave</item>
+        <item name="colorOnPrimaryContainer">@color/texto_primario</item>
+        <item name="colorSecondary">@color/azul_primario</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorError">@color/estado_critico</item>
+        <item name="colorSurface">@color/superficie</item>
+        <item name="colorOnSurface">@color/texto_primario</item>
+        <item name="colorSurfaceVariant">@color/superficie_variante</item>
+        <item name="colorOnSurfaceVariant">@color/texto_secundario</item>
+        <item name="colorOutline">@color/borde</item>
+        <item name="android:colorBackground">@color/fondo</item>
+        <item name="android:statusBarColor">@color/azul_primario_oscuro</item>
     </style>
 </resources>

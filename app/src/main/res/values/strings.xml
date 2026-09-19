@@ -1,3 +1,198 @@
 <resources>
-    <string name="app_name">TrabajoPracticoIng2</string>
+    <string name="app_name">ConurbanFood SGSH</string>
+    <string name="app_nombre_largo">Sistema de Gestión de Seguridad e Higiene</string>
+    <string name="app_empresa">ConurbanFood S.A.</string>
+
+    <!-- Login -->
+    <string name="login_bienvenida">Acceso al sistema</string>
+    <string name="login_subtitulo">Ingresá con tu legajo para acceder al tablero de Seguridad e Higiene.</string>
+    <string name="login_legajo">Legajo</string>
+    <string name="login_clave">Contraseña</string>
+    <string name="login_rol">Perfil de acceso</string>
+    <string name="login_ingresar">Ingresar</string>
+    <string name="login_ayuda">Usuarios de demostración: legajo 1001 / clave 1234 (cualquier perfil).</string>
+    <string name="login_error_legajo">Ingresá un legajo válido (4 dígitos).</string>
+    <string name="login_error_clave">La contraseña debe tener al menos 4 caracteres.</string>
+    <string name="login_error_credenciales">Legajo o contraseña incorrectos.</string>
+    <string name="login_error_rol">Seleccioná un perfil de acceso.</string>
+
+    <!-- Navegación -->
+    <string name="nav_tablero">Tablero</string>
+    <string name="nav_alertas">Alertas</string>
+    <string name="nav_incidentes">Incidentes</string>
+    <string name="nav_tareas">Tareas</string>
+    <string name="nav_mas">Más</string>
+    <string name="volver">Volver</string>
+
+    <!-- Tablero -->
+    <string name="tablero_estado_planta">Estado general de la planta</string>
+    <string name="tablero_actualizado">Actualizado</string>
+    <string name="tablero_indicadores">Indicadores del día</string>
+    <string name="tablero_alertas_criticas">Alertas que requieren atención</string>
+    <string name="tablero_sectores">Estado por sector</string>
+    <string name="tablero_accesos">Accesos rápidos</string>
+    <string name="tablero_ver_todas">Ver todas</string>
+    <string name="tablero_sin_alertas">No hay alertas críticas activas.</string>
+    <string name="kpi_alertas_activas">Alertas activas</string>
+    <string name="kpi_incidentes_abiertos">Incidentes abiertos</string>
+    <string name="kpi_tareas_vencidas">Tareas vencidas</string>
+    <string name="kpi_cumplimiento">Cumplimiento procedimientos</string>
+    <string name="kpi_dias_sin_accidentes">Días sin accidentes con baja</string>
+
+    <!-- Alertas -->
+    <string name="alertas_titulo">Alertas</string>
+    <string name="alertas_vacio">No hay alertas para el filtro seleccionado.</string>
+    <string name="alerta_detalle">Detalle de la alerta</string>
+    <string name="alerta_reconocer">Reconocer alerta</string>
+    <string name="alerta_generar_incidente">Registrar incidente</string>
+    <string name="alerta_reconocida">Alerta reconocida y registrada en auditoría.</string>
+    <string name="alerta_ya_reconocida">La alerta ya fue reconocida.</string>
+
+    <!-- Incidentes -->
+    <string name="incidentes_titulo">Incidentes</string>
+    <string name="incidentes_vacio">No hay incidentes para el filtro seleccionado.</string>
+    <string name="incidente_nuevo">Nuevo incidente</string>
+    <string name="incidente_detalle">Detalle del incidente</string>
+    <string name="incidente_acciones">Acciones correctivas</string>
+    <string name="incidente_nueva_accion">Agregar acción correctiva</string>
+    <string name="incidente_cerrar">Cerrar incidente</string>
+    <string name="incidente_sin_acciones">Todavía no se cargaron acciones correctivas.</string>
+    <string name="incidente_registrado">Incidente registrado correctamente.</string>
+    <string name="incidente_cerrado">Incidente cerrado y registrado en auditoría.</string>
+    <string name="incidente_no_cerrable">No se puede cerrar: hay acciones correctivas pendientes.</string>
+
+    <!-- Formulario de incidente -->
+    <string name="form_titulo_incidente">Título del incidente</string>
+    <string name="form_tipo">Tipo</string>
+    <string name="form_sector">Sector</string>
+    <string name="form_severidad">Severidad</string>
+    <string name="form_descripcion">Descripción de lo ocurrido</string>
+    <string name="form_personas">Personas afectadas</string>
+    <string name="form_responsable">Responsable asignado</string>
+    <string name="form_guardar">Guardar</string>
+    <string name="form_cancelar">Cancelar</string>
+    <string name="form_obligatorio">Este campo es obligatorio.</string>
+    <string name="form_titulo_corto">El título debe tener al menos 5 caracteres.</string>
+    <string name="form_descripcion_corta">La descripción debe tener al menos 15 caracteres.</string>
+    <string name="form_numero_invalido">Ingresá un número entre 0 y 999.</string>
+    <string name="form_seleccione">Seleccioná una opción.</string>
+    <string name="form_errores">Revisá los campos marcados antes de continuar.</string>
+
+    <!-- Tareas -->
+    <string name="tareas_titulo">Tareas y pendientes</string>
+    <string name="tareas_vacio">No hay tareas para el filtro seleccionado.</string>
+    <string name="tarea_nueva">Nueva tarea</string>
+    <string name="tarea_completar">Marcar como completada</string>
+    <string name="tarea_completada">Tarea completada.</string>
+    <string name="tarea_creada">Tarea creada y asignada.</string>
+    <string name="form_vencimiento">Vencimiento (días desde hoy)</string>
+
+    <!-- Acciones correctivas -->
+    <string name="accion_titulo">Acción correctiva</string>
+    <string name="accion_descripcion">Descripción de la acción</string>
+    <string name="accion_registrada">Acción correctiva registrada.</string>
+
+    <!-- Más / secciones secundarias -->
+    <string name="mas_titulo">Más opciones</string>
+    <string name="mas_procedimientos">Procedimientos y cumplimiento</string>
+    <string name="mas_procedimientos_desc">Checklists, inspecciones y nivel de cumplimiento</string>
+    <string name="mas_sectores">Sectores de planta</string>
+    <string name="mas_sectores_desc">Estado operativo y antecedentes por sector</string>
+    <string name="mas_auditoria">Auditoría y trazabilidad</string>
+    <string name="mas_auditoria_desc">Quién hizo qué, cuándo y sobre qué registro</string>
+    <string name="mas_perfil">Perfil y permisos</string>
+    <string name="mas_perfil_desc">Datos del usuario y operaciones habilitadas</string>
+    <string name="mas_cerrar_sesion">Cerrar sesión</string>
+
+    <!-- Procedimientos -->
+    <string name="procedimientos_titulo">Procedimientos</string>
+    <string name="procedimiento_detalle">Detalle del procedimiento</string>
+    <string name="procedimiento_checklist">Puntos de control</string>
+    <string name="procedimiento_registrar">Registrar verificación</string>
+    <string name="procedimiento_verificado">Verificación registrada.</string>
+
+    <!-- Sectores -->
+    <string name="sectores_titulo">Sectores de planta</string>
+    <string name="sector_detalle">Detalle del sector</string>
+    <string name="sector_alertas">Alertas del sector</string>
+    <string name="sector_incidentes">Antecedentes de incidentes</string>
+
+    <!-- Auditoría -->
+    <string name="auditoria_titulo">Auditoría y trazabilidad</string>
+    <string name="auditoria_vacio">No hay registros de auditoría.</string>
+    <string name="auditoria_ayuda">Registro inmutable de las operaciones realizadas en el sistema.</string>
+
+    <!-- Emergencia -->
+    <string name="emergencia_boton">EMERGENCIA</string>
+    <string name="emergencia_titulo">Modo emergencia</string>
+    <string name="emergencia_subtitulo">Seleccioná el tipo de emergencia para ver el protocolo</string>
+    <string name="emergencia_protocolo">Protocolo a seguir</string>
+    <string name="emergencia_declarar">Declarar emergencia</string>
+    <string name="emergencia_declarada">Emergencia declarada. Se notificó a la brigada.</string>
+    <string name="emergencia_contactos">Contactos de emergencia</string>
+    <string name="emergencia_confirmar_titulo">¿Declarar emergencia?</string>
+    <string name="emergencia_confirmar_mensaje">Se notificará a la brigada de emergencias y se registrará la operación en auditoría. Esta acción no puede deshacerse.</string>
+    <string name="emergencia_confirmar_si">Sí, declarar</string>
+    <string name="emergencia_sin_permiso">Tu perfil no tiene permiso para declarar una emergencia.</string>
+
+    <!-- Perfil -->
+    <string name="perfil_titulo">Perfil y permisos</string>
+    <string name="perfil_permisos">Operaciones habilitadas</string>
+
+    <!-- Generales -->
+    <string name="sin_permiso">Tu perfil no tiene permiso para realizar esta operación.</string>
+    <string name="filtro_todas">Todas</string>
+    <string name="filtro_criticas">Críticas</string>
+    <string name="filtro_activas">Activas</string>
+    <string name="filtro_abiertos">Abiertos</string>
+    <string name="filtro_en_proceso">En proceso</string>
+    <string name="filtro_cerrados">Cerrados</string>
+    <string name="filtro_pendientes">Pendientes</string>
+    <string name="filtro_vencidas">Vencidas</string>
+    <string name="filtro_completadas">Completadas</string>
+
+    <!-- Textos con formato usados por adaptadores y pantallas de detalle -->
+    <string name="porcentaje">%1$d%%</string>
+    <string name="version_app">ConurbanFood SGSH · Prototipo v1.0</string>
+    <string name="tablero_actualizado_a">Actualizado al %1$s</string>
+    <string name="alerta_estado_sin_reconocer">Sin reconocer</string>
+    <string name="alerta_estado_reconocida">Reconocida por %1$s</string>
+    <string name="alerta_respuesta_inmediata">Requiere respuesta inmediata. Verificá el sector antes de continuar con otras tareas.</string>
+    <string name="incidente_acciones_pendientes">%1$d acción(es) pendiente(s)</string>
+    <string name="incidente_ya_cerrado">Incidente cerrado</string>
+    <string name="accion_completada">Acción correctiva completada.</string>
+    <string name="accion_descripcion_corta">La acción debe describirse con al menos 10 caracteres.</string>
+    <string name="tarea_responsable_sector">Responsable: %1$s · %2$s</string>
+    <string name="form_vencimiento_invalido">Ingresá un número de días entre 0 y 365.</string>
+    <string name="detalle_sector">Sector: %1$s</string>
+    <string name="detalle_tipo">Tipo: %1$s</string>
+    <string name="detalle_detectada">Detectada %1$s</string>
+    <string name="detalle_fecha">Fecha: %1$s</string>
+    <string name="detalle_reportado">Reportado por: %1$s</string>
+    <string name="detalle_responsable">Responsable: %1$s</string>
+    <string name="detalle_personas">Personas afectadas: %1$d</string>
+    <string name="detalle_ultima_verificacion">Última verificación: %1$s</string>
+    <string name="sector_riesgo">Riesgo principal: %1$s</string>
+    <string name="sector_alertas_activas">%1$d alerta(s) activa(s)</string>
+    <string name="sectores_ayuda">Estado operativo calculado a partir de las alertas activas de cada sector.</string>
+    <string name="sectores_vacio">No hay sectores cargados.</string>
+    <string name="procedimientos_ayuda">Ordenados de menor a mayor cumplimiento: lo que requiere atención aparece primero.</string>
+    <string name="procedimientos_vacio">No hay procedimientos cargados.</string>
+    <string name="procedimiento_ultima">Última verificación: %1$s · %2$s</string>
+    <string name="auditoria_usuario">%1$s (%2$s)</string>
+    <string name="auditoria_entidad">%1$s · Registro afectado: %2$s</string>
+    <string name="perfil_legajo">Legajo: %1$s</string>
+    <string name="perfil_permisos_ayuda">Operaciones habilitadas para el perfil con el que iniciaste sesión.</string>
+    <string name="permiso_ver_tablero">Consultar el tablero de situación</string>
+    <string name="permiso_registrar_incidente">Registrar incidentes</string>
+    <string name="permiso_cerrar_incidente">Cerrar incidentes y acciones correctivas</string>
+    <string name="permiso_reconocer_alerta">Reconocer alertas</string>
+    <string name="permiso_asignar_tarea">Crear y asignar tareas</string>
+    <string name="permiso_completar_tarea">Completar tareas asignadas</string>
+    <string name="permiso_registrar_verificacion">Registrar verificaciones de procedimientos</string>
+    <string name="permiso_declarar_emergencia">Declarar una emergencia</string>
+    <string name="permiso_ver_auditoria">Consultar el registro de auditoría</string>
+    <string name="emergencia_sector">Sector afectado</string>
+    <string name="emergencia_tipo">Tipo de emergencia</string>
+    <string name="emergencia_ya_declarada">Emergencia declarada</string>
 </resources>

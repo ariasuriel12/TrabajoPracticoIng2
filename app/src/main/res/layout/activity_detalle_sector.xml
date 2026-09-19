@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo"
+    android:orientation="vertical">
+
+    <include layout="@layout/view_barra" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Tarjeta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentPadding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/etiquetaSectorDetEstado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="12dp"
+                        android:paddingTop="4dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="4dp"
+                        style="@style/Etiqueta"
+                        tools:text="CRÍTICO" />
+
+                    <TextView
+                        android:id="@+id/textoSectorDetNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        style="@style/Texto.Titulo"
+                        tools:text="Sector" />
+
+                    <TextView
+                        android:id="@+id/textoSectorDetResponsable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        style="@style/Texto.Secundario"
+                        tools:text="Responsable" />
+
+                    <TextView
+                        android:id="@+id/textoSectorDetRiesgo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        style="@style/Texto.Secundario"
+                        tools:text="Riesgo" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/sector_alertas"
+                style="@style/Texto.Seccion" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listaSectorAlertas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/textoSectorSinAlertas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/tablero_sin_alertas"
+                android:visibility="gone"
+                style="@style/Texto.Secundario" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/sector_incidentes"
+                style="@style/Texto.Seccion" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listaSectorIncidentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false" />
+
+            <TextView
+                android:id="@+id/textoSectorSinIncidentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/incidentes_vacio"
+                android:visibility="gone"
+                style="@style/Texto.Secundario" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

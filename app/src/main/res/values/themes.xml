@@ -1,9 +1,53 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.TrabajoPracticoIng2" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/azul_primario</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/azul_suave</item>
+        <item name="colorOnPrimaryContainer">@color/azul_primario</item>
+        <item name="colorSecondary">@color/azul_primario</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorError">@color/estado_critico</item>
+        <item name="colorSurface">@color/superficie</item>
+        <item name="colorOnSurface">@color/texto_primario</item>
+        <item name="colorSurfaceVariant">@color/superficie_variante</item>
+        <item name="colorOnSurfaceVariant">@color/texto_secundario</item>
+        <item name="colorOutline">@color/borde</item>
+        <item name="android:colorBackground">@color/fondo</item>
+        <item name="android:statusBarColor">@color/azul_primario_oscuro</item>
     </style>
 
     <style name="Theme.TrabajoPracticoIng2" parent="Base.Theme.TrabajoPracticoIng2" />
+
+    <!-- Estilos reutilizables del prototipo -->
+    <style name="Texto.Titulo" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textColor">@color/texto_primario</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Texto.Seccion" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textColor">@color/texto_primario</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Texto.Cuerpo" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@color/texto_primario</item>
+    </style>
+
+    <style name="Texto.Secundario" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/texto_secundario</item>
+    </style>
+
+    <style name="Tarjeta" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">14dp</item>
+        <item name="cardElevation">1dp</item>
+        <item name="cardBackgroundColor">@color/superficie</item>
+        <item name="contentPadding">16dp</item>
+    </style>
+
+    <style name="Etiqueta" parent="Texto.Secundario">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.06</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

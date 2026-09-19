@@ -2,4 +2,27 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Paleta institucional ConurbanFood - Seguridad e Higiene -->
+    <color name="azul_primario">#0B3D6B</color>
+    <color name="azul_primario_oscuro">#072A4A</color>
+    <color name="azul_suave">#E8F0F7</color>
+
+    <!-- Semaforo de estado operativo / severidades -->
+    <color name="estado_normal">#2E7D32</color>
+    <color name="estado_normal_suave">#E6F4E7</color>
+    <color name="estado_precaucion">#F9A825</color>
+    <color name="estado_precaucion_suave">#FFF6DF</color>
+    <color name="estado_alto">#EF6C00</color>
+    <color name="estado_alto_suave">#FFF0E2</color>
+    <color name="estado_critico">#C62828</color>
+    <color name="estado_critico_suave">#FBE7E7</color>
+
+    <!-- Superficies y texto -->
+    <color name="fondo">#F4F6F8</color>
+    <color name="superficie">#FFFFFFFF</color>
+    <color name="superficie_variante">#EEF2F5</color>
+    <color name="texto_primario">#1B2733</color>
+    <color name="texto_secundario">#5A6874</color>
+    <color name="borde">#DDE3E8</color>
 </resources>
