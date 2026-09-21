@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/raizLogin"
+    android:id="@+id/raizRegistro"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/fondo"
@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Encabezado -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,13 +21,13 @@
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingStart="24dp"
-            android:paddingTop="48dp"
+            android:paddingTop="40dp"
             android:paddingEnd="24dp"
-            android:paddingBottom="32dp">
+            android:paddingBottom="28dp">
 
             <ImageView
-                android:layout_width="64dp"
-                android:layout_height="64dp"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_escudo"
                 app:tint="@color/white" />
@@ -33,8 +35,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
-                android:text="@string/app_name"
+                android:layout_marginTop="10dp"
+                android:text="Crear cuenta"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:textStyle="bold" />
@@ -44,19 +46,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:gravity="center"
-                android:text="@string/app_nombre_largo"
+                android:text="Registrar un nuevo usuario del sistema"
                 android:textColor="#CFE1F1"
                 android:textSize="13sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:text="@string/app_empresa"
-                android:textColor="#CFE1F1"
-                android:textSize="12sp" />
-
         </LinearLayout>
+
+        <!-- Formulario -->
 
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
@@ -72,23 +68,44 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_bienvenida"
+                    android:text="Datos del usuario"
                     style="@style/Texto.Seccion" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="@string/login_subtitulo"
+                    android:text="Completá los datos para crear la cuenta."
                     style="@style/Texto.Secundario" />
+
+                <!-- Nombre -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/campoNombre"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:hint="Nombre completo">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/entradaNombre"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapWords"
+                        android:maxLength="60" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Legajo -->
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/campoLegajo"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:hint="@string/login_legajo">
+                    android:layout_marginTop="12dp"
+                    android:hint="Legajo">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/entradaLegajo"
@@ -99,13 +116,52 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Rol -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/campoRol"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Rol">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/entradaRol"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Área -->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/campoArea"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="Área">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/entradaArea"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textCapSentences"
+                        android:maxLength="100" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Contraseña -->
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/campoClave"
                     style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="@string/login_clave"
+                    android:hint="Contraseña"
                     app:endIconMode="password_toggle">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -116,50 +172,42 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Confirmar contraseña -->
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/campoRol"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:id="@+id/campoConfirmarClave"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:hint="@string/login_rol">
+                    android:hint="Confirmar contraseña"
+                    app:endIconMode="password_toggle">
 
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/entradaRol"
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/entradaConfirmarClave"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none" />
+                        android:inputType="textPassword" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <!-- Botones -->
+
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/botonIngresar"
+                    android:id="@+id/botonRegistrar"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
                     android:layout_marginTop="20dp"
-                    android:text="@string/login_ingresar"
+                    android:text="Crear cuenta"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/textoAyudaLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="14dp"
-                    android:gravity="center"
-                    android:text="@string/login_ayuda"
-                    style="@style/Texto.Secundario" />
-
-
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/botonRegistrarse"
+                    android:id="@+id/botonVolverLogin"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="¿No tenés una cuenta? Registrate"
-                    android:textStyle="bold" />
-
-
+                    android:text="Ya tengo una cuenta" />
 
             </LinearLayout>
 

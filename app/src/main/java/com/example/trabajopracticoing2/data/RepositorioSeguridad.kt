@@ -19,6 +19,8 @@ import com.example.trabajopracticoing2.model.Tarea
 import com.example.trabajopracticoing2.model.TipoAlerta
 import com.example.trabajopracticoing2.model.TipoEvento
 import com.example.trabajopracticoing2.model.TipoIncidente
+import com.example.trabajopracticoing2.model.Usuario
+import com.example.trabajopracticoing2.model.Rol
 
 /**
  * Unica fuente de datos del prototipo.
@@ -27,6 +29,7 @@ import com.example.trabajopracticoing2.model.TipoIncidente
  */
 object RepositorioSeguridad {
 
+    private val usuarios = mutableListOf<Usuario>() //Usuario y Import
     private val sectores = mutableListOf<Sector>()
     private val alertas = mutableListOf<Alerta>()
     private val incidentes = mutableListOf<Incidente>()
@@ -41,6 +44,36 @@ object RepositorioSeguridad {
     private var diasSinAccidentes = 42
     private var inicializado = false
 
+    // --------------------------------------------------------------- usuarios
+
+    fun usuarios(): List<Usuario> = usuarios.toList()
+
+    fun usuario(legajo: String): Usuario? =
+        usuarios.firstOrNull { it.legajo == legajo }
+
+    fun existeUsuario(legajo: String): Boolean =
+        usuario(legajo) != null
+
+    fun registrarUsuario(usuario: Usuario): Boolean {
+        if (existeUsuario(usuario.legajo)) return false
+
+        usuarios.add(usuario)
+
+        RepositorioAuditoria.registrar(
+            TipoEvento.ALTA,
+            usuario.legajo,
+            "Registró al usuario \"${usuario.nombre}\" con rol ${usuario.rol.etiqueta}"
+        )
+
+        return true
+    }
+
+    fun validarCredenciales(legajo: String, clave: String): Usuario? {
+        return usuarios.firstOrNull {
+            it.legajo == legajo && it.clave == clave
+        }
+    }
+
     // ---------------------------------------------------------------- carga
 
     fun inicializarSiHaceFalta() {
@@ -50,6 +83,39 @@ object RepositorioSeguridad {
     }
 
     private fun cargarDatosDemo() {
+        //Usuarios
+        usuarios.addAll(
+            listOf(
+                Usuario(
+                    legajo = "1001",
+                    nombre = "Marcela Ferreyra",
+                    rol = Rol.RESPONSABLE_SH,
+                    area = "Seguridad e Higiene - Planta Valentín Alsina",
+                    clave = "1234"
+                ),
+                Usuario(
+                    legajo = "1002",
+                    nombre = "Diego Quiroga",
+                    rol = Rol.TECNICO_SH,
+                    area = "Seguridad e Higiene - Planta Valentín Alsina",
+                    clave = "1234"
+                ),
+                Usuario(
+                    legajo = "1003",
+                    nombre = "Hernán Suárez",
+                    rol = Rol.SUPERVISOR_PLANTA,
+                    area = "Producción - Planta Valentín Alsina",
+                    clave = "1234"
+                ),
+                Usuario(
+                    legajo = "1004",
+                    nombre = "Lucía Bentancur",
+                    rol = Rol.AUDITOR,
+                    area = "Auditoría interna",
+                    clave = "1234"
+                )
+            )
+        )
         sectores.addAll(
             listOf(
                 Sector("S1", "Producción de esencias", "J. Molina", "Exposición a solventes", EstadoOperativo.PRECAUCION),

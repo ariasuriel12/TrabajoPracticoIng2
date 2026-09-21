@@ -21,6 +21,7 @@ import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 
+
 /**
  * Pantalla inicial del prototipo.
  *
@@ -37,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var entradaClave: TextInputEditText
     private lateinit var entradaRol: MaterialAutoCompleteTextView
 
-    private val roles = Rol.values()
+    private val roles = Rol.entries
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +49,11 @@ class LoginActivity : AppCompatActivity() {
         configurarSelectorDeRol()
 
         findViewById<MaterialButton>(R.id.botonIngresar).setOnClickListener { intentarIngreso(it) }
+
+        //uriel
+        findViewById<MaterialButton>(R.id.botonRegistrarse).setOnClickListener {
+            startActivity(Intent(this, RegistroActivity::class.java))
+        }
     }
 
     private fun aplicarInsets() {
@@ -79,13 +85,13 @@ class LoginActivity : AppCompatActivity() {
      * No hay autenticacion real ni backend; solo se acepta la navegacion
      * si los campos basicos tienen contenido y se puede seguir con la app.
      */
+
     private fun intentarIngreso(vista: View) {
         limpiarErrores()
         var hayErrores = false
 
         val legajo = entradaLegajo.text?.toString().orEmpty().trim()
         val clave = entradaClave.text?.toString().orEmpty()
-        val rolElegido = entradaRol.text?.toString().orEmpty().trim()
 
         val validacionLegajo = Validadores.legajo(legajo)
         if (validacionLegajo is ResultadoValidacion.Invalido) {
@@ -99,27 +105,32 @@ class LoginActivity : AppCompatActivity() {
             hayErrores = true
         }
 
-        val rol = roles.firstOrNull { it.etiqueta == rolElegido }
-        if (rol == null) {
-            campoRol.error = getString(R.string.login_error_rol)
-            hayErrores = true
-        }
-
         if (hayErrores) {
             Formato.aviso(vista, R.string.form_errores)
             return
         }
 
-        // Demo: entra si el usuario completó los campos; no hay comprobacion real de backend.
-        val usuario = SesionUsuario.iniciarSesion(legajo, rol!!)
+        val usuario = RepositorioSeguridad.validarCredenciales(legajo, clave)
+
+        if (usuario == null) {
+            campoClave.error = "Legajo o contraseña incorrectos"
+            Formato.aviso(vista, R.string.form_errores)
+            return
+        }
+
+        SesionUsuario.iniciarSesion(usuario)
+
         RepositorioAuditoria.registrar(
             TipoEvento.ACCESO,
             "SESION",
-            "Inicio de sesión demo de ${usuario.nombre} (legajo $legajo)"
+            "Inicio de sesión de ${usuario.nombre} (legajo ${usuario.legajo})"
         )
+
         startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
+
+
 
     private fun limpiarErrores() {
         campoLegajo.error = null

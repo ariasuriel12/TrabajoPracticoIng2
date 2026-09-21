@@ -94,7 +94,8 @@ data class Usuario(
     val legajo: String,
     val nombre: String,
     val rol: Rol,
-    val area: String
+    val area: String,
+    val clave: String //Para autenticar el usuario
 )
 
 data class Sector(
