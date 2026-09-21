@@ -6,6 +6,79 @@ El formato sigue la estructura *Keep a Changelog* (Added / Changed / Fixed / Doc
 
 ---
 
+[2026-09-21] — Implementación de registro de nuevos usuarios
+
+### Summary
+
+Se incorporó una nueva pantalla de registro de usuarios integrada al flujo de autenticación existente.
+
+La aplicación ahora permite crear nuevos usuarios desde el Login, validar sus datos, asignarles un rol y área, registrarlos en `RepositorioSeguridad` y volver al Login para utilizar las credenciales creadas.
+
+El nuevo flujo mantiene la arquitectura actual del prototipo y utiliza almacenamiento en memoria.
+
+### Added
+
+* Se agregó `RegistroActivity` dentro del paquete `ui.login`.
+* Se agregó `activity_registro.xml` con una interfaz para crear nuevos usuarios.
+* Se incorporó acceso a la pantalla de registro desde `LoginActivity`.
+* Se agregó un botón para volver desde Registro al Login.
+* Se agregaron campos para:
+
+  * Nombre completo.
+  * Legajo.
+  * Rol.
+  * Área.
+  * Contraseña.
+  * Confirmación de contraseña.
+* Se agregó un selector desplegable para los roles disponibles.
+* Se agregó validación de los datos ingresados antes de crear el usuario.
+* Se agregó la comprobación de que el legajo no exista previamente.
+* Se integró el registro con `RepositorioSeguridad.registrarUsuario()`.
+* Se incorporó el registro automático del evento de alta mediante `RepositorioAuditoria`.
+
+### Changed
+
+* **`LoginActivity.kt`** — se agregó la navegación hacia `RegistroActivity`.
+* **`activity_login.xml`** — se incorporó el botón "¿No tenés una cuenta? Registrate".
+* **`AndroidManifest.xml`** — se registró `RegistroActivity` dentro del paquete `ui.login`.
+* **`RegistroActivity.kt`** — se implementó el flujo completo de creación de usuarios.
+* Se reutilizaron `Validadores` y `Formato` para mantener las validaciones y mensajes existentes.
+* Se reutilizó el modelo `Usuario` existente en lugar de crear un modelo específico para el registro.
+* Se mantuvo `RepositorioSeguridad` como responsable de almacenar y registrar nuevos usuarios.
+* Se mantuvo el almacenamiento en memoria de acuerdo con la arquitectura actual del prototipo.
+
+### Validation
+
+* Se valida que el nombre no esté vacío.
+* Se valida el formato del legajo mediante `Validadores.legajo()`.
+* Se valida la contraseña mediante `Validadores.clave()`.
+* Se comprueba que la contraseña y su confirmación coincidan.
+* Se valida que el área haya sido completada.
+* Se comprueba que el legajo no esté registrado previamente.
+* Se valida que exista un rol seleccionado antes de crear el usuario.
+
+### Verification
+
+* Se verificó la navegación desde Login hacia Registro.
+* Se verificó la creación de nuevos usuarios.
+* Se verificó la validación de campos obligatorios.
+* Se verificó la detección de legajos existentes.
+* Se verificó el regreso al Login después del registro.
+* Se verificó el ingreso con las credenciales del nuevo usuario durante la misma ejecución de la aplicación.
+* Se verificó la compilación y ejecución de la aplicación después de los cambios.
+
+### Notes
+
+* Los nuevos usuarios se almacenan actualmente únicamente en memoria.
+* Los usuarios registrados se pierden al finalizar completamente la ejecución de la aplicación.
+* La persistencia de usuarios queda pendiente para una etapa posterior.
+* El almacenamiento de contraseñas continúa siendo parte del prototipo académico y deberá reemplazarse por un mecanismo seguro si se implementa persistencia real.
+* El siguiente paso puede ser mejorar la gestión de permisos/roles y continuar con las pruebas de los diferentes perfiles de usuario.
+
+
+
+
+
 ## [2026-09-19] — Implementación inicial de la consigna
 
 ### Resumen general
