@@ -6,6 +6,44 @@ El formato sigue la estructura *Keep a Changelog* (Added / Changed / Fixed / Doc
 
 ---
 
+## [2026-09-23] — Persistencia y edición de tareas
+
+### Resumen
+
+Se añadió persistencia local para la sección *Tareas* usando `SharedPreferences`, se eliminaron los datos
+hardcodeados iniciales y se incorporó la capacidad de editar y eliminar tareas desde la interfaz. Los
+cambios mantienen el registro en auditoría y respetan el control de permisos por rol.
+
+### Added
+
+- `app/src/main/java/com/example/trabajopracticoing2/data/PreferenciasTareas.kt` — gestor de `SharedPreferences` para serializar/deserializar la lista de tareas y el contador de secuencia (JSON).
+- `app/src/main/java/com/example/trabajopracticoing2/SeguridadApplication.kt` — `Application` personalizada que inicializa el repositorio con el contexto de la app para permitir carga/guardado al inicio.
+
+### Changed
+
+- `app/src/main/java/com/example/trabajopracticoing2/data/RepositorioSeguridad.kt` — ahora carga tareas desde `PreferenciasTareas`, ya no añade tareas mockeadas al arranque, y persiste los cambios al crear, completar, actualizar o eliminar tareas. Se agregaron `actualizarTarea()` y `eliminarTarea()`.
+- `app/src/main/java/com/example/trabajopracticoing2/ui/tareas/TareaAdapter.kt` — se añadieron callbacks de editar/eliminar y visibilidad de botones según permisos.
+- `app/src/main/res/layout/item_tarea.xml` — botones de `Editar` y `Eliminar` añadidos a la celda de tarea (con `app:tint` para cumplir lint).
+- `app/src/main/java/com/example/trabajopracticoing2/ui/tareas/NuevaTareaActivity.kt` — soporte para edición: precarga de campos cuando se abre con `tareaId` y llamada a `RepositorioSeguridad.actualizarTarea()`.
+- `app/src/main/AndroidManifest.xml` — se registró `SeguridadApplication` para inicialización con contexto.
+- `app/src/main/res/values/strings.xml` — nuevas cadenas para mensajes de edición/eliminación y confirmación.
+
+### Fixed
+
+- Se resolvieron errores de lint (`UseAppTint`) y recursos faltantes (`editar`/`eliminar`) introducidos durante la implementación; se eliminó un import duplicado.
+- Correcciones para evitar disparos espurios de listeners en `TareaAdapter` y manejo correcto de permisos en `TareasFragment`.
+
+### Cómo probar
+
+1. Compilar e instalar el APK:
+```bash
+./gradlew assembleDebug
+adb install -r app/build/outputs/apk/debug/app-debug.apk
+```
+2. Lanzar la app (login) y navegar a *Tareas*.
+3. Crear una tarea nueva, editarla y eliminarla; verificar que los cambios persisten tras cerrar y reabrir la app.
+
+
 [2026-09-21] — Implementación de registro de nuevos usuarios
 
 ### Summary
