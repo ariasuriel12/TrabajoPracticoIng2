@@ -85,6 +85,14 @@
     <string name="tarea_completar">Marcar como completada</string>
     <string name="tarea_completada">Tarea completada.</string>
     <string name="tarea_creada">Tarea creada y asignada.</string>
+    <string name="tarea_editar">Editar tarea</string>
+    <string name="tarea_confirmar_titulo">¿Eliminar tarea?</string>
+    <string name="tarea_confirmar_mensaje">Se eliminará la tarea y la operación quedará registrada en auditoría. Esta acción no puede deshacerse.</string>
+    <string name="tarea_eliminada">Tarea eliminada.</string>
+    <string name="tarea_actualizada">Tarea actualizada.</string>
+    <string name="tarea_eliminar_si">Sí, eliminar</string>
+    <string name="editar">Editar</string>
+    <string name="eliminar">Eliminar</string>
     <string name="form_vencimiento">Vencimiento (días desde hoy)</string>
 
     <!-- Acciones correctivas -->

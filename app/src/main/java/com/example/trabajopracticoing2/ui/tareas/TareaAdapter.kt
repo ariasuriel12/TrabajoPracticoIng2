@@ -3,10 +3,13 @@ package com.example.trabajopracticoing2.ui.tareas
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.trabajopracticoing2.R
 import com.example.trabajopracticoing2.data.RepositorioSeguridad
+import com.example.trabajopracticoing2.data.SesionUsuario
+import com.example.trabajopracticoing2.model.Permiso
 import com.example.trabajopracticoing2.model.EstadoTarea
 import com.example.trabajopracticoing2.model.Tarea
 import com.example.trabajopracticoing2.ui.comun.Formato
@@ -15,7 +18,9 @@ import com.google.android.material.checkbox.MaterialCheckBox
 /** Adaptador de tareas con accion directa de completado desde la lista. */
 class TareaAdapter(
     private var tareas: List<Tarea>,
-    private val alCompletar: (Tarea) -> Unit
+    private val alCompletar: (Tarea) -> Unit,
+    private val alEditar: (Tarea) -> Unit,
+    private val alEliminar: (Tarea) -> Unit
 ) : RecyclerView.Adapter<TareaAdapter.Celda>() {
 
     class Celda(vista: View) : RecyclerView.ViewHolder(vista) {
@@ -25,6 +30,8 @@ class TareaAdapter(
         val severidad: TextView = vista.findViewById(R.id.etiquetaTareaSeveridad)
         val vencimiento: TextView = vista.findViewById(R.id.textoTareaVencimiento)
         val responsable: TextView = vista.findViewById(R.id.textoTareaResponsable)
+        val botonEditar = vista.findViewById<ImageButton>(R.id.botonEditarTarea)
+        val botonEliminar = vista.findViewById<ImageButton>(R.id.botonEliminarTarea)
     }
 
     override fun onCreateViewHolder(padre: ViewGroup, tipoVista: Int): Celda =
@@ -68,6 +75,13 @@ class TareaAdapter(
         celda.check.setOnCheckedChangeListener { _, marcada ->
             if (marcada && !completada) alCompletar(tarea)
         }
+
+        // Editar / Eliminar según permisos
+        val puedeEditar = SesionUsuario.puede(Permiso.ASIGNAR_TAREA)
+        celda.botonEditar.visibility = if (puedeEditar) View.VISIBLE else View.GONE
+        celda.botonEliminar.visibility = if (puedeEditar) View.VISIBLE else View.GONE
+        celda.botonEditar.setOnClickListener { alEditar(tarea) }
+        celda.botonEliminar.setOnClickListener { alEliminar(tarea) }
     }
 
     fun actualizar(nuevas: List<Tarea>) {

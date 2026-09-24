@@ -39,6 +39,7 @@ class NuevaTareaActivity : ActividadBase() {
 
     private val severidades = Severidad.values()
     private val sectores by lazy { RepositorioSeguridad.sectores() }
+    private var tareaEditableId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,6 +68,21 @@ class NuevaTareaActivity : ActividadBase() {
         entradaSeveridad.setSimpleItems(severidades.map { it.etiqueta }.toTypedArray())
         entradaSeveridad.setText(Severidad.MEDIA.etiqueta, false)
         entradaVencimiento.setText("7")
+
+        // Si se pasó un id de tarea, cargar para editar
+        tareaEditableId = intent.getStringExtra("tareaId")
+        tareaEditableId?.let { id ->
+            val t = RepositorioSeguridad.tarea(id)
+            if (t != null) {
+                configurarBarra(R.string.tarea_editar)
+                entradaTitulo.setText(t.titulo)
+                entradaDetalle.setText(t.detalle)
+                entradaResponsable.setText(t.responsable, false)
+                entradaSector.setText(sectores.firstOrNull { it.id == t.sectorId }?.nombre ?: "", false)
+                entradaSeveridad.setText(t.severidad.etiqueta, false)
+                entradaVencimiento.setText(t.diasParaVencer.toString())
+            }
+        }
 
         findViewById<MaterialButton>(R.id.botonGuardarTarea).setOnClickListener { guardar(it) }
         findViewById<MaterialButton>(R.id.botonCancelarTarea).setOnClickListener { finish() }
@@ -124,14 +140,28 @@ class NuevaTareaActivity : ActividadBase() {
             return
         }
 
-        RepositorioSeguridad.crearTarea(
-            titulo = titulo,
-            detalle = detalle,
-            responsable = responsable,
-            sectorId = sector!!.id,
-            diasParaVencer = vencimiento.toInt(),
-            severidad = severidad!!
-        )
+        if (tareaEditableId != null) {
+            val actualizado = RepositorioSeguridad.actualizarTarea(
+                id = tareaEditableId!!,
+                titulo = titulo,
+                detalle = detalle,
+                responsable = responsable,
+                sectorId = sector!!.id,
+                diasParaVencer = vencimiento.toInt(),
+                severidad = severidad!!
+            )
+            if (actualizado) Formato.aviso(vista, R.string.tarea_actualizada)
+        } else {
+            RepositorioSeguridad.crearTarea(
+                titulo = titulo,
+                detalle = detalle,
+                responsable = responsable,
+                sectorId = sector!!.id,
+                diasParaVencer = vencimiento.toInt(),
+                severidad = severidad!!
+            )
+            Formato.aviso(vista, R.string.tarea_creada)
+        }
         setResult(RESULT_OK)
         finish()
     }
