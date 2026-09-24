@@ -14,6 +14,7 @@ import com.example.trabajopracticoing2.R
 import com.example.trabajopracticoing2.data.SesionUsuario
 import com.example.trabajopracticoing2.model.Permiso
 import com.example.trabajopracticoing2.ui.comun.Formato
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.chip.ChipGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -36,17 +37,39 @@ class TareasFragment : Fragment() {
         vista.findViewById<TextView>(R.id.textoVacio).setText(R.string.tareas_vacio)
 
         val lista = vista.findViewById<RecyclerView>(R.id.listaTareas)
-        adaptador = TareaAdapter(emptyList()) { tarea ->
-            if (SesionUsuario.puede(Permiso.COMPLETAR_TAREA)) {
-                if (modelo.completar(tarea)) {
-                    Formato.aviso(requireView(), R.string.tarea_completada)
+        adaptador = TareaAdapter(emptyList(),
+            { tarea ->
+                if (SesionUsuario.puede(Permiso.COMPLETAR_TAREA)) {
+                    if (modelo.completar(tarea)) {
+                        Formato.aviso(requireView(), R.string.tarea_completada)
+                    }
+                } else {
+                    Formato.aviso(requireView(), R.string.sin_permiso)
+                    modelo.refrescar()
                 }
-            } else {
-                // Se revierte el check y se explica el motivo del rechazo.
-                Formato.aviso(requireView(), R.string.sin_permiso)
-                modelo.refrescar()
+            },
+            { tarea -> // editar
+                val intent = Intent(requireContext(), NuevaTareaActivity::class.java)
+                intent.putExtra("tareaId", tarea.id)
+                startActivity(intent)
+            },
+            { tarea -> // eliminar
+                AlertDialog.Builder(requireContext())
+                    .setTitle(R.string.tarea_confirmar_titulo)
+                    .setMessage(R.string.tarea_confirmar_mensaje)
+                    .setNegativeButton(R.string.form_cancelar, null)
+                    .setPositiveButton(R.string.tarea_eliminar_si) { _, _ ->
+                        val ok = com.example.trabajopracticoing2.data.RepositorioSeguridad.eliminarTarea(tarea.id)
+                        if (ok) {
+                            modelo.refrescar()
+                            Formato.aviso(requireView(), R.string.tarea_eliminada)
+                        } else {
+                            Formato.aviso(requireView(), R.string.sin_permiso)
+                        }
+                    }
+                    .show()
             }
-        }
+        )
         lista.layoutManager = LinearLayoutManager(requireContext())
         lista.adapter = adaptador
 

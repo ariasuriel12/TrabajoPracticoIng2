@@ -1,5 +1,6 @@
 package com.example.trabajopracticoing2.data
 
+import android.content.Context
 import com.example.trabajopracticoing2.model.AccionCorrectiva
 import com.example.trabajopracticoing2.model.Alerta
 import com.example.trabajopracticoing2.model.ContactoEmergencia
@@ -29,7 +30,7 @@ import com.example.trabajopracticoing2.model.Rol
  */
 object RepositorioSeguridad {
 
-    private val usuarios = mutableListOf<Usuario>() //Usuario y Import
+    private val usuarios = mutableListOf<Usuario>()
     private val sectores = mutableListOf<Sector>()
     private val alertas = mutableListOf<Alerta>()
     private val incidentes = mutableListOf<Incidente>()
@@ -39,10 +40,11 @@ object RepositorioSeguridad {
     private val contactos = mutableListOf<ContactoEmergencia>()
 
     private var secuenciaIncidente = 14
-    private var secuenciaTarea = 20
+    private var secuenciaTarea = 0
     private var secuenciaAccion = 30
     private var diasSinAccidentes = 42
     private var inicializado = false
+    private var contextoAplicacion: Context? = null
 
     // --------------------------------------------------------------- usuarios
 
@@ -76,10 +78,40 @@ object RepositorioSeguridad {
 
     // ---------------------------------------------------------------- carga
 
-    fun inicializarSiHaceFalta() {
-        if (inicializado) return
+    fun inicializarConContexto(context: Context) {
+        if (contextoAplicacion == null) {
+            contextoAplicacion = context.applicationContext
+        }
+        inicializarSiHaceFalta(context)
+    }
+
+    fun inicializarSiHaceFalta(context: Context? = null) {
+        if (context != null && contextoAplicacion == null) {
+            contextoAplicacion = context.applicationContext
+        }
+        if (inicializado) {
+            if (tareas.isEmpty() && contextoAplicacion != null) {
+                cargarTareasDesdePrefs()
+            }
+            return
+        }
         cargarDatosDemo()
+        cargarTareasDesdePrefs()
         inicializado = true
+    }
+
+    private fun cargarTareasDesdePrefs() {
+        val ctx = contextoAplicacion ?: return
+        val guardadas = PreferenciasTareas.cargarTareas(ctx)
+        tareas.clear()
+        tareas.addAll(guardadas)
+        secuenciaTarea = PreferenciasTareas.cargarSecuencia(ctx, guardadas.size)
+    }
+
+    private fun guardarTareasEnPrefs() {
+        contextoAplicacion?.let { ctx ->
+            PreferenciasTareas.guardarTareas(ctx, tareas, secuenciaTarea)
+        }
     }
 
     private fun cargarDatosDemo() {
@@ -263,17 +295,7 @@ object RepositorioSeguridad {
             )
         )
 
-        tareas.addAll(
-            listOf(
-                Tarea("T-101", "Recargar los 12 extintores vencidos", "Coordinar con el proveedor la recarga y el recambio provisorio.", "C. Ramos", "S4", -2, Severidad.ALTA, EstadoTarea.EN_CURSO),
-                Tarea("T-102", "Reparar ducha lavaojos del laboratorio", "Verificar presión y caudal según procedimiento PRO-06.", "Mantenimiento", "S3", -1, Severidad.MEDIA, EstadoTarea.PENDIENTE),
-                Tarea("T-103", "Simulacro de evacuación general", "Simulacro trimestral con participación de brigada y todos los sectores.", "Marcela Ferreyra", "S1", 4, Severidad.ALTA, EstadoTarea.PENDIENTE),
-                Tarea("T-104", "Capacitación de sustancias peligrosas", "Recapacitar a los 7 operarios con vencimiento.", "Diego Quiroga", "S1", 6, Severidad.ALTA, EstadoTarea.PENDIENTE),
-                Tarea("T-105", "Auditoría interna de uso de EPP", "Recorrida por sector verificando uso efectivo de EPP.", "Diego Quiroga", "S4", 9, Severidad.MEDIA, EstadoTarea.PENDIENTE),
-                Tarea("T-106", "Actualizar hojas de seguridad (MSDS)", "Revisar y reemplazar las hojas de seguridad del depósito.", "A. Ledesma", "S2", 12, Severidad.BAJA, EstadoTarea.EN_CURSO),
-                Tarea("T-107", "Revisión de señalización de expedición", "Reponer cartelería de circulación.", "L. Ibarra", "S7", 3, Severidad.BAJA, EstadoTarea.COMPLETADA)
-            )
-        )
+        // No agregar tareas hardcodeadas aquí. Las tareas las gestiona PreferenciasTareas
 
         procedimientos.addAll(
             listOf(
@@ -608,6 +630,7 @@ object RepositorioSeguridad {
             estado = EstadoTarea.PENDIENTE
         )
         tareas.add(nueva)
+        guardarTareasEnPrefs()
         RepositorioAuditoria.registrar(
             TipoEvento.ALTA,
             nueva.id,
@@ -620,12 +643,63 @@ object RepositorioSeguridad {
         val tarea = tarea(id) ?: return false
         if (tarea.estado == EstadoTarea.COMPLETADA) return false
         tarea.estado = EstadoTarea.COMPLETADA
+        guardarTareasEnPrefs()
         RepositorioAuditoria.registrar(
             TipoEvento.MODIFICACION,
             tarea.id,
             "Marcó como completada la tarea \"${tarea.titulo}\""
         )
         return true
+    }
+
+    /** Actualiza una tarea existente y persiste los cambios. */
+    fun actualizarTarea(
+        id: String,
+        titulo: String,
+        detalle: String,
+        responsable: String,
+        sectorId: String,
+        diasParaVencer: Int,
+        severidad: Severidad
+    ): Boolean {
+        val t = tarea(id) ?: return false
+        val actualizado = Tarea(
+            id = t.id,
+            titulo = titulo,
+            detalle = detalle,
+            responsable = responsable,
+            sectorId = sectorId,
+            diasParaVencer = diasParaVencer,
+            severidad = severidad,
+            estado = t.estado
+        )
+        val idx = tareas.indexOfFirst { it.id == id }
+        if (idx >= 0) {
+            tareas[idx] = actualizado
+            guardarTareasEnPrefs()
+            RepositorioAuditoria.registrar(
+                TipoEvento.MODIFICACION,
+                actualizado.id,
+                "Actualizó la tarea \"${actualizado.titulo}\""
+            )
+            return true
+        }
+        return false
+    }
+
+    /** Elimina una tarea por id y persiste los cambios. */
+    fun eliminarTarea(id: String): Boolean {
+        val tarea = tarea(id) ?: return false
+        val eliminado = tareas.remove(tarea)
+        if (eliminado) {
+            guardarTareasEnPrefs()
+            RepositorioAuditoria.registrar(
+                TipoEvento.RECHAZO,
+                tarea.id,
+                "Eliminó la tarea \"${tarea.titulo}\""
+            )
+        }
+        return eliminado
     }
 
     fun actualizarPuntoControl(procedimientoId: String, indice: Int, cumplido: Boolean): Boolean {
